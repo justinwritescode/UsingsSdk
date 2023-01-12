@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "coverlet.console": {
+      "version": "3.1.2",
+      "commands": [
+        "coverlet"
+      ]
+    },
+    "dotnet-reportgenerator-globaltool": {
+      "version": "5.0.2",
+      "commands": [
+        "reportgenerator"
+      ]
+    },
+    "microsoft.visualstudio.slngen.tool": {
+      "version": "8.5.17",
+      "commands": [
+        "slngen"
+      ]
+    },
+    "dotnet-format": {
+      "version": "6.0.240501",
+      "commands": [
+        "dotnet-format"
+      ]
+    },
+    "csharpier": {
+      "version": "0.21.0",
+      "commands": [
+        "dotnet-csharpier"
+      ]
+    },
+    "dotnet-file": {
+      "version": "1.4.1",
+      "commands": [
+        "dotnet-file"
+      ]
+    }
+  }
+}

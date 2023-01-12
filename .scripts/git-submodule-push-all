@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [[ -z "$1" ]]; then
+    echo "Usage: git-submodule-push-all <commit message>"
+    exit 1
+fi;
+
+git submodule foreach --recursive "git pull; git add .; git commit -m '$1'; git push; git push --tags; git pull;"

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# This script generates the documentation for the project.
+
+# The script expects to be run from the root of the project.
+
+dotnet build -c Release
+
+dotnet 

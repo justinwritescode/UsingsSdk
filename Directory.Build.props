@@ -1,0 +1,15 @@
+<!--
+ * Directory.Build.props
+ * 
+ *   Created: 2023-01-10-09:35:01
+ *   Modified: 2023-01-10-09:35:01
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project>
+  <Import Project="Sdk.props" Sdk="JustinWritesCodeSdk" />
+</Project>

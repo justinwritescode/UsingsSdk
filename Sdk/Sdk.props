@@ -1,0 +1,46 @@
+<!--
+ Sdk.props
+ 
+   Created: 2022-10-23-11:46:20
+   Modified: 2022-10-30-04:09:44
+ 
+   Author: Justin Chase <justin@justinwritescode.com>
+   
+   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project>
+  <Import Project="Sdk.props" Sdk="JustinWritesCodeSdk" />
+  <PropertyGroup>
+    <!-- <Description>A NuGet package containing implicit global usings for the ```$(MSBuildProjectName.Replace(".Usings", ""))``` namespace/domain.</Description> -->
+    <!-- <PackageIcon>Icon.png</PackageIcon> -->
+    <PackageIdOverride Condition="'$(PackageIdOverride)' == ''">$(MSBuildProjectName).Usings</PackageIdOverride>
+    <AssemblyNameOverride>$(PackageIdOverride)</AssemblyNameOverride>
+    <RootNamespaceOverride>$(PackageIdOverride)</RootNamespaceOverride>
+    <PackageId>$(PackageIdOverride)</PackageId>
+    <AssemblyName>$(PackageIdOverride)</AssemblyName>
+    <RootNamespace>$(PackageIdOverride)</RootNamespace>
+    <UsingUsingsSdk>true</UsingUsingsSdk>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
+    <TargetFrameworks>netstandard1.3;netstandard1.5;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
+    <IsPackable>true</IsPackable>
+    <IsNuGetized>true</IsNuGetized>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Language>MSBuild</Language>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj/</IntermediateOutputPath>
+    <OutputFileExtension Condition="'$(MSBuildProjectExtension)' == '.targets'">.targets</OutputFileExtension>
+    <OutputFileExtension Condition="'$(MSBuildProjectExtension)' == '.props'">.props</OutputFileExtension>
+    <OutputFileExtension Condition="'$(OutputFileExtension)' == ''">.props</OutputFileExtension>
+    <OutputFilePackagePath>build/$(PackageId)$(OutputFileExtension)</OutputFilePackagePath>
+    <OutputFilePath>$(IntermediateOutputPath)$(PackageId)/$(PackageId)$(OutputFileExtension)</OutputFilePath>
+    <IconFile>$(MSBuildThisFileDirectory)../Icon.png</IconFile>
+    <UsingsSdkAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/UsingsSdk.dll</UsingsSdkAssemblyFile>
+    <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/UsingsSdk.dll</GetCommandLineArgsAssemblyFile>
+  </PropertyGroup>
+</Project>

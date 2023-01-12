@@ -1,0 +1,13 @@
+<!--
+ * Init.proj
+ * 
+ *   Created: 2023-01-12-05:06:07
+ *   Modified: 2023-01-12-05:06:08
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="JwcRepoInitSdk/0.0.1-Local" />
