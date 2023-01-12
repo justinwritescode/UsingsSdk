@@ -33,6 +33,6 @@ jobs:
       - uses: justinwritescode/deploy-to-docs@v0.44
         with:
           repository_name: ${{github.repository}}
-          github_token: ${{secrets.GIT_TOKEN}}
+          github_token: ${{secrets.GITHUB_TOKEN}}
           branch: ${{github.ref_name}}
           folder_name: ${{needs.calculate-folder-name.outputs.folder_name}}
