@@ -11,6 +11,7 @@
  */
 
 namespace MSBuild.UsingsSdk;
+using static System.String;
 
 public partial class BuildUsingsPackage : MSBTask
 {

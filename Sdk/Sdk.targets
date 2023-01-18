@@ -23,26 +23,45 @@
         Version="$(PackageVersion)">
         <Output TaskParameter="UsingsProjectFile" PropertyName="UsingsProjectFile" />
       </JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage>
+      <JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
+        <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
+      </JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
+      <ItemGroup>
+        <BuildArgs Include="dotnet pack" />
+        <BuildArgs Include="$(UsingsProjectFile)" />
+        <BuildArgs Include="@(CommandLineArgs)" />
+      </ItemGroup>
+      <Message Text="@(BuildArgs, ' ')" Importance="High" />
+      <Exec Command="cd $(MSBuildProjectDirectory); @(BuildArgs, ' ')" />
    </Target>
-     <Target Name="PackUsingsProject" AfterTargets="Pack">
-             <!-- <JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
-                <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
-            </JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject> -->
-            <MSBuild Projects="$(UsingsProjectFile)" Targets="Pack" />
-     </Target>
-   <ItemGroup>
-    <!-- <Content Include="$(OutputFilePath)" PackagePath="$(OutputFilePackagePath)" />
-    <Content Include="$(IconFile)" PackagePath="" /> -->
-   </ItemGroup>
-   <Target Name="PushAzure" AfterTargets="Pack">
-    <MSBuild Projects="$(UsingsProjectFile)" Targets="PushAzure" />
+    <!-- <Target Name="PackUsingsProject" AfterTargets="Pack">
+       <JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
+        <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
+    </JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
+    <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore" />
+    <MSBuild Projects="$(UsingsProjectFile)" Targets="Pack" />
+    </Target> -->
+  <ItemGroup>
+    <BuildArgs Include="dotnet pack" />
+    <BuildArgs Include="$(UsingsProjectFile)" />
+    <BuildArgs Include="-t:PushLocal" Condition="'$(Configuration)' == 'Local'" />
+  </ItemGroup>
+   <!-- <Target Name="PushAzure" DependsOnTargets="Pack">
+    <ItemGroup>
+      <BuildArgs Include="-t:PushAzure" />
+    </ItemGroup>
    </Target>
-   <Target Name="PushGitHub" AfterTargets="Pack">
-    <MSBuild Projects="$(UsingsProjectFile)" Targets="PushGitHub" />
+   <Target Name="PushGitHub" DependsOnTargets="Pack">
+    <ItemGroup>
+      <BuildArgs Include="-t:PushGitHub" />
+    </ItemGroup>
    </Target>
    <Target Name="MinVer">
     <Message Text="MinVer" />
-   </Target>
+   </Target> -->
+   <!-- <Target Name="Pack">
+    <Message Text="Pack" />
+   </Target> -->
    <Target Name="OutputProperties" AfterTargets="Build">
     <Message Text="PackageIdOverride: $(PackageIdOverride)" />
     <Message Text="AssemblyNameOverride: $(AssemblyNameOverride)" />

@@ -12,8 +12,8 @@
 
 #pragma warning disable
 namespace MSBuild.UsingsSdk;
-
 using System.Xml.Serialization;
+using static System.IO.Path;
 using XElementOrProjectItemInstance = AnyOf<
     System.Xml.Linq.XElement,
     Microsoft.Build.Execution.ProjectItemInstance
@@ -40,18 +40,18 @@ public partial class BuildUsingsPackage
                 AllProperties.GetPropertyValue("PackageId")
                 ?? AllProperties.GetPropertyValue("PackageIdOverride")
                 ?? AllProperties.GetPropertyValue("AssemblyName")
-                ?? Path.GetFileNameWithoutExtension(InputFile) + ".Usings";
+                ?? GetFileNameWithoutExtension(InputFile) + ".Usings";
         set => _packageId = value;
     }
-    private string PackageReadmeFile => Path.Combine(OutputDirectory, "README.md");
+    private string PackageReadmeFile => Combine(OutputDirectory, "README.md");
 
     [Output]
-    public string UsingsProjectFile => Path.Combine(OutputDirectory, $"{PackageId}.csproj");
-    private string? OutputDirectory => Path.GetDirectoryName(OutputFile);
+    public string UsingsProjectFile => Combine(OutputDirectory, $"{PackageId}.csproj");
+    private string? OutputDirectory => GetDirectoryName(OutputFile);
     private string? PackageLibDirectory =>
-        Path.GetDirectoryName(typeof(BuildUsingsPackage).Assembly.Location);
+        GetDirectoryName(typeof(BuildUsingsPackage).Assembly.Location);
     private string? PackageContentFilesDirectory =>
-        Path.Combine(PackageLibDirectory, "../contentFiles");
+        Combine(PackageLibDirectory, "../contentFiles");
     private IEnumerable<ProjectTuple?>? _allProjects;
     protected IEnumerable<ProjectTuple?> AllProjects => _allProjects ??= Load(InputFile)!;
     private IEnumerable<ProjectPropertyInstance>? _allProperties;
@@ -94,7 +94,7 @@ public partial class BuildUsingsPackage
             ?.GetAttributeValue("Include")
         ?? "Icon.png";
     protected string Description =>
-        $"This project contains a set of `using` statements and package and project imports for the `{Path.GetFileNameWithoutExtension(InputFile)}` namespace for reuse in other projects";
+        $"This project contains a set of `using` statements and package and project imports for the `{GetFileNameWithoutExtension(InputFile)}` namespace for reuse in other projects";
     protected string Authors => AllProperties.GetPropertyValue("Authors", "No Author Specified");
     protected string Copyright =>
         AllProperties.GetPropertyValue(nameof(Copyright), "No Copyright Specified");
@@ -103,7 +103,7 @@ public partial class BuildUsingsPackage
         ?? AllProperties.GetPropertyValue("OutputPath")
         ?? AllProperties.GetPropertyValue("OutDir")
         ?? AllProperties.GetPropertyValue("BaseOutputPath")
-        ?? Path.Combine(Path.GetDirectoryName(InputFile), "artifacts");
+        ?? Combine(GetDirectoryName(InputFile), "artifacts");
 
     private XElement[] DefaultPackageReferences = Array.Empty<XElement>(); /*new[]
     {
@@ -122,7 +122,7 @@ public partial class BuildUsingsPackage
         AllProperties.GetPropertyValue(nameof(TargetFrameworks), DefaultTargetFrameworks);
     public static readonly ComparersImplementation Comparers = new();
     private string NuGetPackagesExistCachePath =>
-        Path.Combine(OutputDirectory, "../nugetPackagesExist.cache.json");
+        Combine(OutputDirectory, "../nugetPackagesExist.cache.json");
     private static Dictionary<string, bool>? _nuGetPackagesExistCache;
     private IDictionary<string, bool> NuGetPackagesExistCache =>
         _nuGetPackagesExistCache ??= File.Exists(NuGetPackagesExistCachePath)
@@ -134,15 +134,15 @@ public partial class BuildUsingsPackage
     private XElement[] XUsings => AllProjects.GetXItems("Using").ToArray();
     private ProjectItemInstance[] Usings => AllProjects.GetItems("Using").ToArray();
     private XElement[] XProjectReferences =>
-        AllProjects.GetXItems("ProjectReference").Distinct(Comparers).ToArray();
+        AllProjects.GetXItems(ProjectReference).Distinct(Comparers).ToArray();
     private XElement[] XFrameworkReferences =>
-        AllProjects.GetXItems("FrameworkReference").Distinct(Comparers).ToArray();
+        AllProjects.GetXItems(FrameworkReference).Distinct(Comparers).ToArray();
     private XElement[] XPackageReferences =>
-        AllProjects.GetXItems("PackageReference").Distinct(Comparers).ToArray();
+        AllProjects.GetXItems(PackageReference).Distinct(Comparers).ToArray();
     private ProjectItemInstance[] ProjectReferences =>
-        AllProjects.GetItems("ProjectReference").Distinct(Comparers).ToArray();
+        AllProjects.GetItems(ProjectReference).Distinct(Comparers).ToArray();
     private ProjectItemInstance[] PackageReferences =>
-        AllProjects.GetItems("PackageReference").Distinct(Comparers).ToArray();
+        AllProjects.GetItems(PackageReference).Distinct(Comparers).ToArray();
     private ProjectItemTuple[] ProjectReferenceTuples => XProjectReferences.Join(ProjectReferences);
     private ProjectItemTuple[] PackageReferenceTuples => XPackageReferences.Join(PackageReferences);
 
@@ -160,19 +160,24 @@ public partial class BuildUsingsPackage
         AllProperties.GetPropertyValue(nameof(AssemblyVersion), Regex.Replace(Version, "-.*", ""));
     private string PackageLicenseExpression =>
         AllProperties.GetPropertyValue(nameof(PackageLicenseExpression), "MIT");
-    private string PackageIcon => Path.GetFileName(IconFile);
-    private const string GeneratePackageOnBuild = "true";
-    private const string IsPackable = "true";
-    private const string IsNuGetized = "true";
-    private const string PublishRepositoryUrl = "true";
-    private const string NoBuild = "true";
-    private const string IncludeSource = "false";
-    private const string IncludeBuiltProjectOutputGroup = "false";
-    private const string IncludeSourceFilesProjectOutputGroup = "false";
-    private const string IncludeContentFilesProjectOutputGroup = "false";
-    private const string IncludeBuildOutput = "false";
-    private const string IncludeSymbols = "false";
+    private string PackageIcon => GetFileName(IconFile);
+    private const string True = "true";
+    private const string False = "false";
+    private const string GeneratePackageOnBuild = True;
+    private const string IsPackable = True;
+    private const string IsNuGetized = True;
+    private const string PublishRepositoryUrl = True;
+    private const string NoBuild = True;
+    private const string IncludeSource = False;
+    private const string IncludeBuiltProjectOutputGroup = False;
+    private const string IncludeSourceFilesProjectOutputGroup = False;
+    private const string IncludeContentFilesProjectOutputGroup = False;
+    private const string IncludeBuildOutput = False;
+    private const string IncludeSymbols = False;
     private string PackageTags => $"$({nameof(PackageTags)}) using usings namespace nuget package " + PackageId;
     private string Title => PackageId;
     private string Summary => Description;
+    private const string ProjectReference = nameof(ProjectReference);
+    private const string PackageReference = nameof(PackageReference);
+    private const string FrameworkReference = nameof(FrameworkReference);
 }

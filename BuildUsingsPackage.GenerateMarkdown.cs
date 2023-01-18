@@ -11,13 +11,14 @@
  */
 
 namespace MSBuild.UsingsSdk;
+using static DateTimeOffset;
 
 public partial class BuildUsingsPackage
 {
     public string GenerateMarkdownReadme() =>
         new StringBuilder()
             .AppendFormat(
-                "---{0}title: {1}{0}version: {2}{0}authors: {3}{0}copyright: {4}{0}description: {5}{0}date: {6}{0}---{0}{0}",
+                "---{0}title: {1}{0}version: {2}{0}authors: {3}{0}copyright: {4}{0}description: {5}{0}date: {6}{0}lastmod: {6}{0}---{0}{0}",
                 NewLine,
                 PackageId,
                 Version,
@@ -49,5 +50,8 @@ public partial class BuildUsingsPackage
             .AppendLine("### Project References")
             .AppendLine()
             .AppendLine(Join(NewLine, XProjectReferences.Select(x => $"- {x.GetIncludeValue()}")))
+            .AppendLine("### Framework References")
+            .AppendLine()
+            .AppendLine(Join(NewLine, XFrameworkReferences.Select(x => $"- {x.GetIncludeValue()}")))
             .ToString();
 }

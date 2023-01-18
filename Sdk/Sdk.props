@@ -13,8 +13,6 @@
 <Project>
   <Import Project="Sdk.props" Sdk="JustinWritesCodeSdk" />
   <PropertyGroup>
-    <!-- <Description>A NuGet package containing implicit global usings for the ```$(MSBuildProjectName.Replace(".Usings", ""))``` namespace/domain.</Description> -->
-    <!-- <PackageIcon>Icon.png</PackageIcon> -->
     <PackageIdOverride Condition="'$(PackageIdOverride)' == ''">$(MSBuildProjectName).Usings</PackageIdOverride>
     <AssemblyNameOverride>$(PackageIdOverride)</AssemblyNameOverride>
     <RootNamespaceOverride>$(PackageIdOverride)</RootNamespaceOverride>
@@ -24,13 +22,17 @@
     <UsingUsingsSdk>true</UsingUsingsSdk>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
     <TargetFrameworks>netstandard1.3;netstandard1.5;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
-    <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
     <IsPackable>true</IsPackable>
     <IsNuGetized>true</IsNuGetized>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Language>MSBuild</Language>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">0.0.1-Local</PackageVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">0.0.1</AssemblyVersion>
+    <FileVersion Condition="'$(FileVersion)' == ''">$(PackageVersion)</FileVersion>
+    <InformationalVersion Condition="'$(InformationalVersion)' == ''">$(PackageVersion)</InformationalVersion>
+    <Version Condition="'$(Version)' == ''">$(PackageVersion)</Version>
   </PropertyGroup>
   <PropertyGroup>
     <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj/</IntermediateOutputPath>

@@ -8,13 +8,13 @@
     "MSBuild.SolutionSdk": "0.1.0",
     "MSBuild.SolutionSdk.SlnGen": "0.1.0",
     "MSBuild.IncludeSdk": "0.0.1-Local",
-    "UsingsSdk": "0.0.5",
+    "UsingsSdk": "0.0.1-Local",
     "RestoreProjSdk": "0.0.3",
     "JustInTimeVersioningSdk": "0.0.3",
     "MSBuild.Usings": "0.0.1-Local",
     "NuGetPush": "0.0.4",
     "MetapackageSdk": "0.0.2",
-    "JustinWritesCodeSdk": "0.0.8",
+    "JustinWritesCodeSdk": "0.0.9",
     "JwcRepoInitSdk": "0.0.1"
   }
 }
