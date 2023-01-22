@@ -24,7 +24,7 @@ public partial class BuildUsingsPackage
                 Authors,
                 Copyright,
                 Description,
-                Now.ToString("yyyy-MM-dd HH:mm:ss")
+                DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss")
             )
             .AppendLine()
             .AppendLine($"## {PackageId}")
