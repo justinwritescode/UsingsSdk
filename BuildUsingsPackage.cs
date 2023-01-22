@@ -1,4 +1,5 @@
-﻿/*
+﻿using System.Security.AccessControl;
+/*
  * CreateUsingsProject.cs
  *
  *   Created: 2022-11-22-03:14:00
@@ -139,7 +140,7 @@ public partial class BuildUsingsPackage : MSBTask
         {
             return " *(static)*";
         }
-        return Empty;
+        return string.Empty;
     }
 
     private static string GetNuGetUri(XElement @element) =>
@@ -160,6 +161,6 @@ public partial class BuildUsingsPackage : MSBTask
         var alias = x.IsFirst
             ? x.First.GetMetadataValue("Alias")
             : x.Second.GetAttributeValue("Alias");
-        return IsNullOrWhiteSpace(alias) ? Empty : $" (Alias: *{alias}*)";
+        return IsNullOrWhiteSpace(alias) ? string.Empty : $" (Alias: *{alias}*)";
     }
 }
