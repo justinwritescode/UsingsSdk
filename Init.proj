@@ -1,8 +1,8 @@
 <!--
  * Init.proj
  * 
- *   Created: 2023-01-12-05:06:07
- *   Modified: 2023-01-12-05:06:08
+ *   Created: 2023-01-14-04:12:13
+ *   Modified: 2023-01-16-06:45:15
  * 
  *   Author: Justin Chase <justin@justinwritescode.com>
  *   
@@ -10,4 +10,4 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
-<Project Sdk="JwcRepoInitSdk/0.0.1-Local" />
+<Project Sdk="JwcRepoInitSdk" />

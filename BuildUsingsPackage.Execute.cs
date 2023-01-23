@@ -185,7 +185,10 @@ public partial class BuildUsingsPackage
             NuGetPackagesExistCachePath,
             JsonSerializer.Serialize(NuGetPackagesExistCache)
         );
-
+        Log.LogMessage(
+                   MessageImportance.High,
+                   "Done!"
+               );
         return true;
     }
 }

@@ -161,6 +161,8 @@ public partial class BuildUsingsPackage
     private string PackageLicenseExpression =>
         AllProperties.GetPropertyValue(nameof(PackageLicenseExpression), "MIT");
     private string PackageIcon => GetFileName(IconFile);
+
+    private const string CopyLocalLockFileAssemblies = False;
     private const string True = "true";
     private const string False = "false";
     private const string GeneratePackageOnBuild = True;

@@ -1,4 +1,37 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B283EBC2-E01F-412D-9339-FD56EF114549}" 
+	ProjectSection(SolutionItems) = preProject
+		..\..\Init.proj = ..\..\Init.proj
+		..\..\.github\ISSUE_TEMPLATE\bug_report.yml = ..\..\.github\ISSUE_TEMPLATE\bug_report.yml
+		..\..\.github\ISSUE_TEMPLATE\config.yml = ..\..\.github\ISSUE_TEMPLATE\config.yml
+		..\..\.github\ISSUE_TEMPLATE\feature_request.yml = ..\..\.github\ISSUE_TEMPLATE\feature_request.yml
+		..\..\.github\ISSUE_TEMPLATE\security_report.yml = ..\..\.github\ISSUE_TEMPLATE\security_report.yml
+		..\..\.github\PULL_REQUEST_TEMPLATE.md = ..\..\.github\PULL_REQUEST_TEMPLATE.md
+		..\..\.github\pull_request_template.yml = ..\..\.github\pull_request_template.yml
+		..\..\.github\workflows\build-ci.yml = ..\..\.github\workflows\build-ci.yml
+		..\..\.github\workflows\docs-cd.yml = ..\..\.github\workflows\docs-cd.yml
+		..\..\.github\workflows\greetings.yml = ..\..\.github\workflows\greetings.yml
+		..\..\.scripts\chmodall.sh = ..\..\.scripts\chmodall.sh
+		..\..\.scripts\delete-github-package-version = ..\..\.scripts\delete-github-package-version
+		..\..\.scripts\generate-docs = ..\..\.scripts\generate-docs
+		..\..\.scripts\generate-pfx = ..\..\.scripts\generate-pfx
+		..\..\.scripts\git-submodule-push-all = ..\..\.scripts\git-submodule-push-all
+		..\..\.scripts\git-submodule-restore-all = ..\..\.scripts\git-submodule-restore-all
+		..\..\.scripts\git-submodule-status-all = ..\..\.scripts\git-submodule-status-all
+		..\..\.scripts\install-mkdocs-plugins = ..\..\.scripts\install-mkdocs-plugins
+		..\..\.scripts\shebangify-ts = ..\..\.scripts\shebangify-ts
+		..\..\.scripts\ts\delete-github-package-version.ts = ..\..\.scripts\ts\delete-github-package-version.ts
+		..\..\.scripts\ts\github-cli-types.ts = ..\..\.scripts\ts\github-cli-types.ts
+		..\..\.scripts\ts\github-cli.ts = ..\..\.scripts\ts\github-cli.ts
+		..\..\.config\dotnet-tools.json = ..\..\.config\dotnet-tools.json
+		..\..\global.json = ..\..\global.json
+		..\..\README.md = ..\..\README.md
+		..\..\.gitignore = ..\..\.gitignore
+		..\..\Directory.Build.props = ..\..\Directory.Build.props
+		..\..\Directory.Build.targets = ..\..\Directory.Build.targets
+		..\..\NuGet.config = ..\..\NuGet.config
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsingsSdk", "UsingsSdk.csproj", "{C58D05B3-5481-4C1F-BB37-966BC38C8D6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8DF30227-A761-4765-BC06-6A1DDB6BBA11}"

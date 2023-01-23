@@ -17,7 +17,7 @@
     <PackageId>UsingsSdk</PackageId>
     <RootNamespace>UsingsSdk</RootNamespace>
     <AssemblyName>UsingsSdk</AssemblyName>
-    <TargetFrameworks>net7.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <IncludeInSolutionFile>true</IncludeInSolutionFile>
     <EnableGlobalCodeGenerators>false</EnableGlobalCodeGenerators>
     <!-- <OutputPath>lib/</OutputPath> -->
@@ -94,15 +94,16 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Remove="System.Xml.XDocument" />
+    <Reference Include="System.Runtime" />
   </ItemGroup>
   <PropertyGroup>
     <!-- <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/GetCommandLineArgs.dll</GetCommandLineArgsAssemblyFile> -->
     <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/$(AssemblyName).dll</GetCommandLineArgsAssemblyFile>
   </PropertyGroup>
   <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(GetCommandLineArgsAssemblyFile)" />
-  <Target Name="CleanOutput">
+  <Target Name="CleanOutput" BeforeTargets="Pack">
     <ItemGroup>
-      <FileToDelete Include="$(PackageTargetPath)" />
+      <FileToDelete Include="$(OutputPath)$(PackageId).*.nupkg" />
     </ItemGroup>
     <Delete Files="@(FileToDelete)">
       <Output TaskParameter="DeletedFiles" ItemName="DeletedFiles" />

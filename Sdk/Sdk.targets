@@ -32,7 +32,7 @@
         <BuildArgs Include="@(CommandLineArgs)" />
       </ItemGroup>
       <Message Text="@(BuildArgs, ' ')" Importance="High" />
-      <Exec Command="cd $(MSBuildProjectDirectory); @(BuildArgs, ' ')" />
+      <Exec Command="@(BuildArgs, ' ')" />
    </Target>
     <!-- <Target Name="PackUsingsProject" AfterTargets="Pack">
        <JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
