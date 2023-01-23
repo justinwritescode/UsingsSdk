@@ -10,7 +10,7 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
 -->
 
-<Project>	
+<Project Sdk="JwcRepoInitSdk">	
   <Import Project="Sdk.props" Sdk="JustinWritesCodeSdk" Condition="'$(JustinWritesCodeSdkProps)' == ''" />
   <PropertyGroup>
     <JustinWritesCodeSdkProps>$(MSBuildThisFileDirectory)Sdk.props</JustinWritesCodeSdkProps>

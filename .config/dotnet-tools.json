@@ -15,13 +15,13 @@
       ]
     },
     "microsoft.visualstudio.slngen.tool": {
-      "version": "8.5.17",
+      "version": "9.3.1",
       "commands": [
         "slngen"
       ]
     },
     "dotnet-format": {
-      "version": "6.0.240501",
+      "version": "5.1.250801",
       "commands": [
         "dotnet-format"
       ]

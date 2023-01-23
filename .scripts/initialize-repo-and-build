@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dotnet tool install --local dotnet-file --version 1.4.1;
+dotnet file add https://github.com/justinwritescode/JwcRepoInitSdk/blob/main/Init.proj;
+dotnet file add https://github.com/justinwritescode/JwcRepoInitSdk/blob/main/global.json;
+dotnet file add https://github.com/justinwritescode/JwcRepoInitSdk/blob/main/NuGet.config;
+dotnet restore Init.proj;
+
+dotnet nuget 
+
+dotnet build ./*.slnproj -c:Release;
