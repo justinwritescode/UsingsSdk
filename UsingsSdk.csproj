@@ -100,7 +100,7 @@
     <!-- <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/GetCommandLineArgs.dll</GetCommandLineArgsAssemblyFile> -->
     <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/$(AssemblyName).dll</GetCommandLineArgsAssemblyFile>
   </PropertyGroup>
-  <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(GetCommandLineArgsAssemblyFile)" />
+  <!-- <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(GetCommandLineArgsAssemblyFile)" /> -->
   <Target Name="CleanOutput" BeforeTargets="Pack">
     <ItemGroup>
       <FileToDelete Include="$(OutputPath)$(PackageId).*.nupkg" />

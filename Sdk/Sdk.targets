@@ -23,16 +23,17 @@
         Version="$(PackageVersion)">
         <Output TaskParameter="UsingsProjectFile" PropertyName="UsingsProjectFile" />
       </JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage>
-      <JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
+      <!-- <JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
         <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
-      </JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
-      <ItemGroup>
+      </JustinWritesCode.MSBuild.Utils.GetCommandLineArgs> -->
+      <!-- <ItemGroup>
         <BuildArgs Include="dotnet pack" />
         <BuildArgs Include="$(UsingsProjectFile)" />
         <BuildArgs Include="@(CommandLineArgs)" />
       </ItemGroup>
       <Message Text="@(BuildArgs, ' ')" Importance="High" />
-      <Exec Command="@(BuildArgs, ' ')" />
+      <Exec Command="@(BuildArgs, ' ')" /> -->
+      <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore;Pack" />
    </Target>
     <!-- <Target Name="PackUsingsProject" AfterTargets="Pack">
        <JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
