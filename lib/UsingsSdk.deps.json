@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "UsingsSdk/0.0.1.0": {
+      "UsingsSdk/0.0.7.0": {
         "dependencies": {
           "AnyOf.SourceGenerator": "0.3.0",
           "GetCommandLineArgs": "0.0.1-Local",
           "GitInfo": "2.3.0",
-          "MSBuild.Extensions": "0.0.1-Local",
+          "MSBuild.Extensions": "0.0.1",
           "Microsoft.Build": "17.3.2",
           "Microsoft.Build.Tasks.Git": "1.1.1",
           "Microsoft.Build.Utilities.Core": "17.4.0",
@@ -42,9 +42,8 @@
       },
       "GetCommandLineArgs/0.0.1-Local": {
         "dependencies": {
-          "MSBuild.Extensions": "0.0.1-Local",
+          "MSBuild.Extensions": "0.0.1",
           "Microsoft.Build": "17.3.2",
-          "Microsoft.Build.Framework": "17.4.0",
           "Microsoft.Build.Utilities.Core": "17.4.0"
         }
       },
@@ -155,7 +154,7 @@
         }
       },
       "MinVer/4.2.0": {},
-      "MSBuild.Extensions/0.0.1-Local": {
+      "MSBuild.Extensions/0.0.1": {
         "dependencies": {
           "Microsoft.Build": "17.3.2",
           "Microsoft.Build.Framework": "17.4.0",
@@ -689,7 +688,7 @@
     }
   },
   "libraries": {
-    "UsingsSdk/0.0.1.0": {
+    "UsingsSdk/0.0.7.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -704,7 +703,7 @@
     "GetCommandLineArgs/0.0.1-Local": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-pKNJQazDYA3qzjFip3bAP9xnRMAC5Ldmq3YvlgmTj+WSoL1aQL3U/b0eqQdO9hkVj/afj3kukgGyF05TftpBHQ==",
+      "sha512": "sha512-mV91QZ9nk6wuhinWlXZij9eW1bWpM4CGJRwsvmUBK2Pfn/94YTv9v5/3KjcQInEV1VcK14YpG9A0oCPHX4Gmcg==",
       "path": "getcommandlineargs/0.0.1-local",
       "hashPath": "getcommandlineargs.0.0.1-local.nupkg.sha512"
     },
@@ -820,12 +819,12 @@
       "path": "minver/4.2.0",
       "hashPath": "minver.4.2.0.nupkg.sha512"
     },
-    "MSBuild.Extensions/0.0.1-Local": {
+    "MSBuild.Extensions/0.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xCR6uYNovpSz7/AcGQZlZbACaiZL2hgxXVcliFNycXYocJIrV3qzl3Oy/v2FMIAdff7mandUDNM+ylQaz8L8yw==",
-      "path": "msbuild.extensions/0.0.1-local",
-      "hashPath": "msbuild.extensions.0.0.1-local.nupkg.sha512"
+      "sha512": "sha512-hzkoKVx89WD8Oi06xskslquwSz5A07bEE92mXUMcK1hVg/EgXcivEfa3jlrUf5CforwDWrbn+A4iR3W3JxR6bg==",
+      "path": "msbuild.extensions/0.0.1",
+      "hashPath": "msbuild.extensions.0.0.1.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.1": {
       "type": "package",
