@@ -1,0 +1,4 @@
+[file "Init.proj"]
+	url = https://github.com/justinwritescode/JwcRepoInitSdk/blob/main/Init.proj
+[file "global.json"]
+	url = https://github.com/justinwritescode/JwcRepoInitSdk/blob/main/global.json

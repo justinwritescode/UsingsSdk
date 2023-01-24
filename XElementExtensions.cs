@@ -33,18 +33,12 @@ public static class XEExtensions
     public static string? GetAttributeValue(this XE element, string name) =>
         GetAttributeValue((AnyOf<PIE, XE>)element, name);
 
-    public static string? GetAttributeValue(
-        this AnyOf<PIE, XE> element,
-        string name
-    ) =>
+    public static string? GetAttributeValue(this AnyOf<PIE, XE> element, string name) =>
         element.IsFirst
             ? element.First.GetMetadataValue(name)
             : element.Second.GetAttribute(name)?.Value;
 
-    public static string? GetAttributeValue(
-        this XEOrPII element,
-        string name
-    ) =>
+    public static string? GetAttributeValue(this XEOrPII element, string name) =>
         element.IsFirst
             ? element.First.GetAttribute(name)?.Value
             : element.Second.GetMetadataValue(name);
@@ -59,10 +53,7 @@ public static class XEExtensions
             .OrderBy(x => x?.GetAttributeValue("Include"))
             .ToArray();
 
-    public static PII[]? GetItems(
-        this IEnumerable<ProjectTuple?> projects,
-        string name
-    ) =>
+    public static PII[]? GetItems(this IEnumerable<ProjectTuple?> projects, string name) =>
         projects
             .SelectMany(x => x?.ProjectInstance.GetItems(name)!)
             .Distinct(BuildUsingsPackage.Comparers)

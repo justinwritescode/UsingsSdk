@@ -12,6 +12,8 @@
 #pragma warning disable
 
 namespace MSBuild.UsingsSdk;
+
+using NuGet.Protocol.Plugins;
 using XA = System.Xml.Linq.XAttribute;
 using XC = System.Xml.Linq.XComment;
 using XD = System.Xml.Linq.XDocument;
@@ -102,6 +104,7 @@ public partial class BuildUsingsPackage
                 "Project",
                 new XA("Sdk", "Microsoft.NET.Sdk"),
                 // new XA("DefaultTargets", "Pack"),
+                // new XE("Import", new XA("Project", "$(MSBuildBinPath)/Sdks/NuGet.Build.Tasks.Pack/buildCrossTargeting/NuGet.Build.Tasks.Pack.targets")),
                 new XC("properties: " + properties.Length),
                 new XC("⬇️ Properties ⬇️"),
                 new XE("PropertyGroup", properties),
@@ -134,6 +137,19 @@ public partial class BuildUsingsPackage
                     ),
                     new XE("None", new XA("Remove", "**/$(AssemblyName).*")),
                     new XE("None", new XA("Remove", "**/*.cs"))
+                ),
+                new XE(
+                    "Target",
+                    new XA("Name", "GetPackageVersion"),
+                    new XE(
+                        "PropertyGroup",
+                        new XA("Condition", "'$(PackageVersion)' == ''"),
+                        new XE(
+                            nameof(PackageVersion),
+                            new XA($"Condition", $"'$({nameof(PackageVersion)})' == ''"),
+                            PackageVersion
+                        )
+                    )
                 )
             )
         );
@@ -185,10 +201,7 @@ public partial class BuildUsingsPackage
             NuGetPackagesExistCachePath,
             JsonSerializer.Serialize(NuGetPackagesExistCache)
         );
-        Log.LogMessage(
-                   MessageImportance.High,
-                   "Done!"
-               );
+        Log.LogMessage(MessageImportance.High, "Done!");
         return true;
     }
 }

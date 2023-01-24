@@ -1,5 +1,4 @@
-﻿using System.Security.AccessControl;
-/*
+﻿/*
  * CreateUsingsProject.cs
  *
  *   Created: 2022-11-22-03:14:00
@@ -47,40 +46,132 @@ public partial class BuildUsingsPackage : MSBTask
                 allProperties.GetPropertyValue(nameof(PackageId), PackageId)
             ),
             // TargetFramework is not null ? new XElement("TargetFramework", TargetFramework) : null,
-            new XElement(nameof(TargetFrameworks), new XAttribute(Condition, $"'$({nameof(TargetFrameworks)})' == ''"), TargetFrameworks),
-            new XElement(nameof(PackageIdOverride), new XAttribute(Condition, $"'$({nameof(PackageIdOverride)})' == ''"), PackageIdOverride),
-            new XElement(nameof(Version), new XAttribute(Condition, $"'$({nameof(Version)})' == ''"), Version),
-            new XElement(nameof(PackageVersion), new XAttribute(Condition, $"'$({nameof(PackageVersion)})' == ''"), PackageVersion),
-            new XElement(nameof(MinVerVersionOverride), new XAttribute(Condition, $"'$({nameof(MinVerVersionOverride)})' == ''"), MinVerVersionOverride),
-            new XElement(nameof(FileVersion), new XAttribute(Condition, $"'$({nameof(FileVersion)})' == ''"), FileVersion),
-            new XElement(nameof(AssemblyVersion), new XAttribute(Condition, $"'$({nameof(AssemblyVersion)})' == ''"), AssemblyVersion),
-            new XElement(nameof(PackageLicenseExpression), new XAttribute(Condition, $"'$({nameof(PackageLicenseExpression)})' == ''"), PackageLicenseExpression),
-            new XElement(nameof(PackageOutputPath), new XAttribute(Condition, $"'$({nameof(PackageOutputPath)})' == ''"), PackageOutputPath),
-            new XElement(nameof(PackageIcon), new XAttribute(Condition, $"'$({nameof(PackageIcon)})' == ''"), PackageIcon),
-            new XElement(nameof(GeneratePackageOnBuild), new XAttribute(Condition, $"'$({nameof(GeneratePackageOnBuild)})' == ''"), GeneratePackageOnBuild),
-            new XElement(nameof(IsPackable), new XAttribute(Condition, $"'$({nameof(IsPackable)})' == ''"), IsPackable),
-            new XElement(nameof(IsNuGetized), new XAttribute(Condition, $"'$({nameof(IsNuGetized)})' == ''"), IsNuGetized),
-            new XElement(nameof(Title), new XAttribute(Condition, $"'$({nameof(Title)})' == ''"), Title),
-            new XElement(nameof(Summary), new XAttribute(Condition, $"'$({nameof(Summary)})' == ''"), Summary),
-            new XElement(nameof(Authors), new XAttribute(Condition, $"'$({nameof(Authors)})' == ''"), Authors),
+            new XElement(
+                nameof(TargetFrameworks),
+                new XAttribute(Condition, $"'$({nameof(TargetFrameworks)})' == ''"),
+                TargetFrameworks
+            ),
+            new XElement(
+                nameof(PackageIdOverride),
+                new XAttribute(Condition, $"'$({nameof(PackageIdOverride)})' == ''"),
+                PackageIdOverride
+            ),
+            new XElement(
+                nameof(Version),
+                new XAttribute(Condition, $"'$({nameof(Version)})' == ''"),
+                Version
+            ),
+            new XElement(
+                nameof(PackageVersion),
+                new XAttribute(Condition, $"'$({nameof(PackageVersion)})' == ''"),
+                PackageVersion
+            ),
+            new XElement(
+                nameof(MinVerVersionOverride),
+                new XAttribute(Condition, $"'$({nameof(MinVerVersionOverride)})' == ''"),
+                MinVerVersionOverride
+            ),
+            new XElement(
+                nameof(FileVersion),
+                new XAttribute(Condition, $"'$({nameof(FileVersion)})' == ''"),
+                FileVersion
+            ),
+            new XElement(
+                nameof(AssemblyVersion),
+                new XAttribute(Condition, $"'$({nameof(AssemblyVersion)})' == ''"),
+                AssemblyVersion
+            ),
+            new XElement(
+                nameof(PackageLicenseExpression),
+                new XAttribute(Condition, $"'$({nameof(PackageLicenseExpression)})' == ''"),
+                PackageLicenseExpression
+            ),
+            new XElement(
+                nameof(PackageOutputPath),
+                new XAttribute(Condition, $"'$({nameof(PackageOutputPath)})' == ''"),
+                PackageOutputPath
+            ),
+            new XElement(
+                nameof(PackageIcon),
+                new XAttribute(Condition, $"'$({nameof(PackageIcon)})' == ''"),
+                PackageIcon
+            ),
+            new XElement(
+                nameof(GeneratePackageOnBuild),
+                new XAttribute(Condition, $"'$({nameof(GeneratePackageOnBuild)})' == ''"),
+                GeneratePackageOnBuild
+            ),
+            new XElement(
+                nameof(IsPackable),
+                new XAttribute(Condition, $"'$({nameof(IsPackable)})' == ''"),
+                IsPackable
+            ),
+            new XElement(
+                nameof(IsNuGetized),
+                new XAttribute(Condition, $"'$({nameof(IsNuGetized)})' == ''"),
+                IsNuGetized
+            ),
+            new XElement(
+                nameof(Title),
+                new XAttribute(Condition, $"'$({nameof(Title)})' == ''"),
+                Title
+            ),
+            new XElement(
+                nameof(Summary),
+                new XAttribute(Condition, $"'$({nameof(Summary)})' == ''"),
+                Summary
+            ),
+            new XElement(
+                nameof(Authors),
+                new XAttribute(Condition, $"'$({nameof(Authors)})' == ''"),
+                Authors
+            ),
+            new XElement(nameof(EmitNuspec), True),
             // new XElement(nameof(Copyright), new XAttribute(Condition, $"'$({nameof(Copyright)})' == ''"), Copyright),
-            new XElement(nameof(PublishRepositoryUrl), new XAttribute(Condition, $"'$({nameof(PublishRepositoryUrl)})' == ''"), PublishRepositoryUrl),
+            new XElement(
+                nameof(PublishRepositoryUrl),
+                new XAttribute(Condition, $"'$({nameof(PublishRepositoryUrl)})' == ''"),
+                PublishRepositoryUrl
+            ),
             new XElement(nameof(PackageTags), PackageTags),
             new XElement(nameof(IncludeBuiltProjectOutputGroup), IncludeBuiltProjectOutputGroup),
+            new XElement(nameof(CopyLocalLockFileAssemblies), CopyLocalLockFileAssemblies),
             new XElement(
                 nameof(IncludeSourceFilesProjectOutputGroup),
-                new XAttribute(Condition, $"'$({nameof(IncludeSourceFilesProjectOutputGroup)})' == ''"),
+                new XAttribute(
+                    Condition,
+                    $"'$({nameof(IncludeSourceFilesProjectOutputGroup)})' == ''"
+                ),
                 IncludeSourceFilesProjectOutputGroup
             ),
             new XElement(
                 nameof(IncludeContentFilesProjectOutputGroup),
-                new XAttribute(Condition, $"'$({nameof(IncludeContentFilesProjectOutputGroup)})' == ''"),
+                new XAttribute(
+                    Condition,
+                    $"'$({nameof(IncludeContentFilesProjectOutputGroup)})' == ''"
+                ),
                 IncludeContentFilesProjectOutputGroup
             ),
-            new XElement(nameof(NoBuild), new XAttribute(Condition, $"'$({nameof(NoBuild)})' == ''"), NoBuild),
-            new XElement(nameof(IncludeSource), new XAttribute(Condition, $"'$({nameof(IncludeSource)})' == ''"), IncludeSource),
-            new XElement(nameof(IncludeSymbols), new XAttribute(Condition, $"'$({nameof(IncludeSymbols)})' == ''"), IncludeSymbols),
-            new XElement(nameof(IncludeBuildOutput), new XAttribute(Condition, $"'$({nameof(IncludeBuildOutput)})' == ''"), IncludeBuildOutput)
+            new XElement(
+                nameof(NoBuild),
+                new XAttribute(Condition, $"'$({nameof(NoBuild)})' == ''"),
+                NoBuild
+            ),
+            new XElement(
+                nameof(IncludeSource),
+                new XAttribute(Condition, $"'$({nameof(IncludeSource)})' == ''"),
+                IncludeSource
+            ),
+            new XElement(
+                nameof(IncludeSymbols),
+                new XAttribute(Condition, $"'$({nameof(IncludeSymbols)})' == ''"),
+                IncludeSymbols
+            ),
+            new XElement(
+                nameof(IncludeBuildOutput),
+                new XAttribute(Condition, $"'$({nameof(IncludeBuildOutput)})' == ''"),
+                IncludeBuildOutput
+            )
         };
         return copiedProperties.OrderBy(p => p.Name.ToString()).ToArray();
     }
@@ -121,7 +212,7 @@ public partial class BuildUsingsPackage : MSBTask
             type,
             GetReferenceAttributes(@ref.XItem, includeVersion)
                 .Concat(
-                    GetReferenceAttributes(@ref.Item, includeVersion) ?? Array.Empty<XAttribute>()
+                    GetReferenceAttributes(@ref.Item, includeVersion) ?? Empty<XAttribute>()
                 )
                 .Distinct(Comparers)
                 .ToArray()
@@ -136,11 +227,11 @@ public partial class BuildUsingsPackage : MSBTask
     private static string FormatIsStatic(AnyOf<MSBC.ProjectItemElement, XElement> x)
     {
         var metadataValue = x.GetAttributeValue("Static");
-        if (metadataValue?.Equals("true", StringComparison.InvariantCultureIgnoreCase) ?? false)
+        if (metadataValue?.Equals("true", InvariantCultureIgnoreCase) ?? false)
         {
             return " *(static)*";
         }
-        return string.Empty;
+        return Empty;
     }
 
     private static string GetNuGetUri(XElement @element) =>
@@ -161,6 +252,6 @@ public partial class BuildUsingsPackage : MSBTask
         var alias = x.IsFirst
             ? x.First.GetMetadataValue("Alias")
             : x.Second.GetAttributeValue("Alias");
-        return IsNullOrWhiteSpace(alias) ? string.Empty : $" (Alias: *{alias}*)";
+        return IsNullOrWhiteSpace(alias) ? Empty : $" (Alias: *{alias}*)";
     }
 }

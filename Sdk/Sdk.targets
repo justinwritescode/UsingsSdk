@@ -12,10 +12,39 @@
 
 <Project>
   <Import Project="Sdk.targets" Sdk="JustinWritesCodeSdk" />
-   <!-- <Import Project="$(MSBuildBinPath)/Microsoft.Common.CrossTargeting.targets" /> -->
    <UsingTask TaskName="JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage" AssemblyFile="$(UsingsSdkAssemblyFile)" />
    <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(UsingsSdkAssemblyFile)" />
-   <Target Name="Pack" DependsOnTargets="SetPackageOwnersAndAuthors;SetPackageCopyright">
+    <ItemGroup>
+      <!-- <Targets Include="Build" /> -->
+    </ItemGroup>
+   <Target Name="PushGitHub">
+    <ItemGroup>
+      <Targets Include="PushGitHub" />
+    </ItemGroup>
+   </Target>
+   <Target Name="PushAzure">
+    <ItemGroup>
+      <Targets Include="PushAzure" />
+    </ItemGroup>
+   </Target>
+   <Target Name="PushLocal">
+    <ItemGroup>
+      <Targets Include="PushLocal" />
+    </ItemGroup>
+   </Target>
+   <Target Name="GenerateNuspec">
+    <ItemGroup>
+      <Targets Include="GenerateNuspec" />
+    </ItemGroup>
+   </Target>
+   <Target Name="GetPackageVersion">
+    <PropertyGroup>
+      <PackageVersion>$(VersionPrefix)</PackageVersion>
+      <PackageVersion Condition="'$(VersionSuffix)' != ''">$(PackageVersion)-$(VersionSuffix)</PackageVersion>
+      <PackageVersion Condition="'$(VersionSuffix)' == ''">$(PackageVersion)-$(VersionSuffix)</PackageVersion>
+    </PropertyGroup>
+   </Target>
+   <Target Name="Build" DependsOnTargets="SetPackageOwnersAndAuthors;SetPackageCopyright">
       <JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage
         InputFile="$(MSBuildProjectFullPath)"
         OutputFile="$(OutputFilePath)"
@@ -32,37 +61,25 @@
         <BuildArgs Include="@(CommandLineArgs)" />
       </ItemGroup>
       <Message Text="@(BuildArgs, ' ')" Importance="High" />
-      <Exec Command="@(BuildArgs, ' ')" /> -->
-      <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore;Pack" />
-   </Target>
-    <!-- <Target Name="PackUsingsProject" AfterTargets="Pack">
-       <JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
-        <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
-    </JustinWritesCode.MSBuild.UsingsSdk.CreateUsingsProject>
-    <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore" />
-    <MSBuild Projects="$(UsingsProjectFile)" Targets="Pack" />
-    </Target> -->
+      <Exec Command="@(BuildArgs, ' ')" /> 
   <ItemGroup>
     <BuildArgs Include="dotnet pack" />
     <BuildArgs Include="$(UsingsProjectFile)" />
     <BuildArgs Include="-t:PushLocal" Condition="'$(Configuration)' == 'Local'" />
-  </ItemGroup>
-   <!-- <Target Name="PushAzure" DependsOnTargets="Pack">
-    <ItemGroup>
-      <BuildArgs Include="-t:PushAzure" />
+  </ItemGroup> -->
+  </Target>
+   <Target Name="Pack" AfterTargets="Build" DependsOnTargets="Build">
+    <!-- <ItemGroup>
+      <BuildArgs Include="dotnet pack" />
+      <BuildArgs Include="$(UsingsProjectFile)" />
+      <BuildArgs Include="@(Targets->'-t:%(Identity)')" />
     </ItemGroup>
+    <Message Text="@(BuildArgs, ' ')" Importance="High" />
+    <Exec Command="@(BuildArgs, ' ')" /> -->
+    <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore" />
+    <!-- <MSBuild Projects="$(UsingsProjectFile)" Targets="@(Targets)" /> -->
+    <Exec Command="dotnet build $(UsingsProjectFile) @(Targets->'t:%(Identity)')" />
    </Target>
-   <Target Name="PushGitHub" DependsOnTargets="Pack">
-    <ItemGroup>
-      <BuildArgs Include="-t:PushGitHub" />
-    </ItemGroup>
-   </Target>
-   <Target Name="MinVer">
-    <Message Text="MinVer" />
-   </Target> -->
-   <!-- <Target Name="Pack">
-    <Message Text="Pack" />
-   </Target> -->
    <Target Name="OutputProperties" AfterTargets="Build">
     <Message Text="PackageIdOverride: $(PackageIdOverride)" />
     <Message Text="AssemblyNameOverride: $(AssemblyNameOverride)" />

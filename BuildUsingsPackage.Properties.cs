@@ -50,8 +50,7 @@ public partial class BuildUsingsPackage
     private string? OutputDirectory => GetDirectoryName(OutputFile);
     private string? PackageLibDirectory =>
         GetDirectoryName(typeof(BuildUsingsPackage).Assembly.Location);
-    private string? PackageContentFilesDirectory =>
-        Combine(PackageLibDirectory, "../contentFiles");
+    private string? PackageContentFilesDirectory => Combine(PackageLibDirectory, "../contentFiles");
     private IEnumerable<ProjectTuple?>? _allProjects;
     protected IEnumerable<ProjectTuple?> AllProjects => _allProjects ??= Load(InputFile)!;
     private IEnumerable<ProjectPropertyInstance>? _allProperties;
@@ -176,10 +175,12 @@ public partial class BuildUsingsPackage
     private const string IncludeContentFilesProjectOutputGroup = False;
     private const string IncludeBuildOutput = False;
     private const string IncludeSymbols = False;
-    private string PackageTags => $"$({nameof(PackageTags)}) using usings namespace nuget package " + PackageId;
+    private string PackageTags =>
+        $"$({nameof(PackageTags)}) using usings namespace nuget package " + PackageId;
     private string Title => PackageId;
     private string Summary => Description;
     private const string ProjectReference = nameof(ProjectReference);
     private const string PackageReference = nameof(PackageReference);
     private const string FrameworkReference = nameof(FrameworkReference);
+    private const string EmitNuspec = nameof(EmitNuspec);
 }

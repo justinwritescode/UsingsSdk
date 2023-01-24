@@ -97,28 +97,19 @@
     <Reference Include="System.Runtime" />
   </ItemGroup>
   <PropertyGroup>
-    <!-- <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/GetCommandLineArgs.dll</GetCommandLineArgsAssemblyFile> -->
-    <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)lib/$(AssemblyName).dll</GetCommandLineArgsAssemblyFile>
+    <!-- <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)bin/$(Configuration)/GetCommandLineArgs.dll</GetCommandLineArgsAssemblyFile>
+    <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)bin/$(Configuration)/$(AssemblyName).dll</GetCommandLineArgsAssemblyFile> -->
   </PropertyGroup>
   <!-- <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(GetCommandLineArgsAssemblyFile)" /> -->
-  <Target Name="CleanOutput" BeforeTargets="Pack">
-    <ItemGroup>
-      <FileToDelete Include="$(OutputPath)$(PackageId).*.nupkg" />
-    </ItemGroup>
-    <Delete Files="@(FileToDelete)">
-      <Output TaskParameter="DeletedFiles" ItemName="DeletedFiles" />
-    </Delete>
-    <Message Importance="High" Text="Deleted Files: @(DeletedFiles)" />
-  </Target>
- <!-- <Target Name="TestUsingsSdk" AfterTargets="Pack" DependsOnTargets="PushLocal" Condition="'$(Configuration)' == 'Local'">
-    <GetCommandLineArgs>
+ <Target Name="TestUsingsSdk" AfterTargets="Pack" DependsOnTargets="PushLocal" Condition="'$(Configuration)' == 'Local'">
+    <!-- <GetCommandLineArgs>
       <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArg" />
-    </GetCommandLineArgs>
-    <Exec Command="dotnet build ./Test.usings @(CommandLineArg, ' ')" />
-    <Exec Command="dotnet pack ./Test.usings @(CommandLineArg, ' ')" />
-    <Exec Command="dotnet build ./EFC.usings @(CommandLineArg, ' ')" />
-    <Exec Command="dotnet pack ./EFC.usings @(CommandLineArg, ' ')" />
-    <Exec Command="dotnet build ./STJ.usings @(CommandLineArg, ' ')" />
-    <Exec Command="dotnet pack ./STJ.usings @(CommandLineArg, ' ')" />
-  </Target> -->
+    </GetCommandLineArgs> -->
+    <!-- <MSBuild Projects="./Test.usings" Targets="Build" />
+    <MSBuild Projects="./Test.usings" Targets="Pack" />
+    <MSBuild Projects="./EFC.usings" Targets="Build" />
+    <MSBuild Projects="./EFC.usings" Targets="Pack" />
+    <MSBuild Projects="./STJ.usings" Targets="Build" />
+    <MSBuild Projects="./STJ.usings" Targets="Pack" /> -->
+  </Target>
 </Project>
