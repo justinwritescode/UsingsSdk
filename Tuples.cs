@@ -10,6 +10,8 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
+using Microsoft.Build.Execution;
+
 public record struct ProjectItemTuple(XElement XItem, ProjectItemInstance Item);
 
 public record struct ProjectTuple(ProjectInstance? ProjectInstance, XDocument? XDocument);

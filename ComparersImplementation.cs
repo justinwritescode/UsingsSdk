@@ -12,6 +12,7 @@
 #pragma warning disable
 namespace MSBuild.UsingsSdk;
 using System.Xml.Linq;
+using Microsoft.Build.Execution;
 using Microsoft.Build.Utilities;
 using MSBC = Microsoft.Build.Construction;
 using MSBEx = Microsoft.Build.Execution;
@@ -33,7 +34,7 @@ public partial class BuildUsingsPackage
     {
         public static TaskLog? Logger { get; set; }
 
-        public bool Equals(ProjectPropertyInstance? x, ProjectPropertyInstance? y) =>
+        public bool Equals(MSBEx.ProjectPropertyInstance? x, ProjectPropertyInstance? y) =>
             x.Name.Equals(y.Name, StringComparison.InvariantCultureIgnoreCase)
             && x.EvaluatedValue.Equals(
                 y.EvaluatedValue,

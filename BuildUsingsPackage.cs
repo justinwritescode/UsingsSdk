@@ -11,12 +11,13 @@
  */
 
 namespace MSBuild.UsingsSdk;
+
+using System.Net.Http;
+using Microsoft.Build.Execution;
 using static System.String;
 
 public partial class BuildUsingsPackage : MSBTask
 {
-    private const string Condition = nameof(Condition);
-
     public virtual IEnumerable<ProjectTuple?>? Load(string? path)
     {
         if (path is null)
@@ -162,15 +163,9 @@ public partial class BuildUsingsPackage : MSBTask
                 new XAttribute(Condition, $"'$({nameof(IncludeSource)})' == ''"),
                 IncludeSource
             ),
-            new XElement(
-                nameof(IncludeSymbols),
-                new XAttribute(Condition, $"'$({nameof(IncludeSymbols)})' == ''"),
-                IncludeSymbols
-            ),
-            new XElement(
-                nameof(IncludeBuildOutput),
-                new XAttribute(Condition, $"'$({nameof(IncludeBuildOutput)})' == ''"),
-                IncludeBuildOutput
+            new XElement(nameof(IncludeSymbols), new XAttribute(Condition, $"'$({nameof(IncludeSymbols)})' == ''"), IncludeSymbols),
+            new XElement(nameof(IncludeBuildOutput), new XAttribute(Condition, $"'$({nameof(IncludeBuildOutput)})' == ''"), IncludeBuildOutput),
+            new XElement(nameof(IncludeCopyLocalFilesOutputGroup), IncludeCopyLocalFilesOutputGroup
             )
         };
         return copiedProperties.OrderBy(p => p.Name.ToString()).ToArray();
@@ -239,8 +234,8 @@ public partial class BuildUsingsPackage : MSBTask
 
     private bool GetNuGetPackageExists(XElement @element) =>
         NuGetPackagesExistCache[@element.GetIncludeValue()] =
-            NuGetPackagesExistCache.TryGetValue(@element.GetIncludeValue(), out var exists)
-            && exists;
+            (NuGetPackagesExistCache.TryGetValue(@element.GetIncludeValue(), out var exists) && exists)
+            || new HttpClient().GetAsync(new Uri(GetNuGetUri(@element))).Result.IsSuccessStatusCode;
 
     private string? FormatPackageReferenceMarkdown(XElement @element) =>
         GetNuGetPackageExists(@element)

@@ -33,6 +33,7 @@
     <FileVersion Condition="'$(FileVersion)' == ''">$(PackageVersion)</FileVersion>
     <InformationalVersion Condition="'$(InformationalVersion)' == ''">$(PackageVersion)</InformationalVersion>
     <Version Condition="'$(Version)' == ''">$(PackageVersion)</Version>
+    <IncludeBuildProjectOutputGroup>true</IncludeBuildProjectOutputGroup>
   </PropertyGroup>
   <PropertyGroup>
     <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' == ''">obj/</IntermediateOutputPath>
@@ -42,7 +43,11 @@
     <OutputFilePackagePath>build/$(PackageId)$(OutputFileExtension)</OutputFilePackagePath>
     <OutputFilePath>$(IntermediateOutputPath)$(PackageId)/$(PackageId)$(OutputFileExtension)</OutputFilePath>
     <IconFile>$(MSBuildThisFileDirectory)../Icon.png</IconFile>
-    <UsingsSdkAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/UsingsSdk.dll</UsingsSdkAssemblyFile>
-    <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/UsingsSdk.dll</GetCommandLineArgsAssemblyFile>
+    <UsingsSdkAssemblyFile>$(MSBuildThisFileDirectory)../lib/UsingsSdk.dll</UsingsSdkAssemblyFile>
+    <GetCommandLineArgsAssemblyFile>$(MSBuildThisFileDirectory)../lib//UsingsSdk.dll</GetCommandLineArgsAssemblyFile>
+    <GetAllPropertiesAssemblyFile>$(MSBuildThisFileDirectory)../lib/GetAllProperties.dll</GetAllPropertiesAssemblyFile>
+    <!-- <GetAllPropertiesAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/UsingsSdk.dll</GetAllPropertiesAssemblyFile> -->
+    <!-- <DotNetCliTaskAssemblyFile>$(MSBuildThisFileDirectory)../lib/net7.0/JustinWritesCode.MSBuild.Tasks.DotNetCliTask.dll</DotNetCliTaskAssemblyFile> -->
+    <DotNetCliTaskAssemblyFile>$(MSBuildThisFileDirectory)../lib/JustinWritesCode.MSBuild.Tasks.DotNetCliTask.dll</DotNetCliTaskAssemblyFile>
   </PropertyGroup>
 </Project>

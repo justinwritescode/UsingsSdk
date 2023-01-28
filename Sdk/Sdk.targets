@@ -11,12 +11,23 @@
 -->
 
 <Project>
-  <Import Project="Sdk.targets" Sdk="JustinWritesCodeSdk" />
+   <Import Project="Sdk.targets" Sdk="JustinWritesCodeSdk" />
+   <Import Project="Sdk.props" Sdk="UsingsSdk" Condition="'$(UsingUsingsSdk)' != 'true'" />
+  <ItemGroup>
+    <Targets Include="Build" />
+  </ItemGroup>
+   <!-- <Import Project="$(MSBuildBinPath)/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets" /> -->
    <UsingTask TaskName="JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage" AssemblyFile="$(UsingsSdkAssemblyFile)" />
-   <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(UsingsSdkAssemblyFile)" />
-    <ItemGroup>
-      <!-- <Targets Include="Build" /> -->
-    </ItemGroup>
+   <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetCommandLineArgs" AssemblyFile="$(GetCommandLineArgsAssemblyFile)" />
+   <UsingTask TaskName="JustinWritesCode.MSBuild.Utils.GetAllProperties" AssemblyFile="$(GetAllPropertiesAssemblyFile)" />
+   <UsingTask TaskName="JustinWritesCode.MSBuild.Tasks.Dotnet" AssemblyFile="$(DotNetCliTaskAssemblyFile)" />
+    <Target Name="GetProperties" BeforeTargets="Pack">
+      <GetAllProperties>
+        <Output TaskParameter="Properties" ItemName="Properties" />
+      </GetAllProperties>
+      <Properties Include="PackageVersion" Value="$(PackageVersion)" />
+      <Properties Include="Configuration" Value="$(Configuration)" />
+    </Target>
    <Target Name="PushGitHub">
     <ItemGroup>
       <Targets Include="PushGitHub" />
@@ -32,6 +43,11 @@
       <Targets Include="PushLocal" />
     </ItemGroup>
    </Target>
+   <Target Name="PushNuGet">
+    <ItemGroup>
+      <Targets Include="PushNuGet" />
+    </ItemGroup>
+   </Target>
    <Target Name="GenerateNuspec">
     <ItemGroup>
       <Targets Include="GenerateNuspec" />
@@ -39,46 +55,37 @@
    </Target>
    <Target Name="GetPackageVersion">
     <PropertyGroup>
-      <PackageVersion>$(VersionPrefix)</PackageVersion>
-      <PackageVersion Condition="'$(VersionSuffix)' != ''">$(PackageVersion)-$(VersionSuffix)</PackageVersion>
-      <PackageVersion Condition="'$(VersionSuffix)' == ''">$(PackageVersion)-$(VersionSuffix)</PackageVersion>
+      <PackageVersion>$(PackageVersion)</PackageVersion>
     </PropertyGroup>
    </Target>
+    <ItemGroup>
+      <PackageReference Include="GetAllProperties" IncludeAssets="Runtime;Compile;Runtime;Build" ExcludeAssets="ContentFiles" PrivateAssets="None" CopyLocal="true" />
+      <PackageReference Include="GetCommandLineArgs" IncludeAssets="Runtime;Build;Compile" ExcludeAssets="ContentFiles"  PrivateAssets="None" CopyLocal="true" />
+      <PackageReference Include="JustinWritesCode.MSBuild.Tasks.DotNetCliTask" IncludeAssets="Lib;Runtime;Compile;Build" ExcludeAssets="Analuzers;Native" PrivateAssets="None" CopyLocal="true" />
+    </ItemGroup>
    <Target Name="Build" DependsOnTargets="SetPackageOwnersAndAuthors;SetPackageCopyright">
-      <JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage
+      <ItemGroup>
+        <Properties Include="PackageVersionOverride" Value="$(PackageVersionOverride)" Condition="'$(PackageVersionOverride)' != ''" />
+        <Properties Include="PackageVersion" Value="$(PackageVersion)" />
+        <Properties Include="Configuration" Value="$(Configuration)" />
+      </ItemGroup>
+      <!-- <GetAllProperties>
+        <Output TaskParameter="Properties" ItemName="Properties" />
+      </GetAllProperties> -->
+      <!-- <JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage
         InputFile="$(MSBuildProjectFullPath)"
         OutputFile="$(OutputFilePath)"
                     PackageId="$(PackageId)"
         Version="$(PackageVersion)">
         <Output TaskParameter="UsingsProjectFile" PropertyName="UsingsProjectFile" />
-      </JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage>
-      <!-- <JustinWritesCode.MSBuild.Utils.GetCommandLineArgs>
-        <Output TaskParameter="CommandLineArgs" ItemName="CommandLineArgs" />
-      </JustinWritesCode.MSBuild.Utils.GetCommandLineArgs> -->
-      <!-- <ItemGroup>
-        <BuildArgs Include="dotnet pack" />
-        <BuildArgs Include="$(UsingsProjectFile)" />
-        <BuildArgs Include="@(CommandLineArgs)" />
-      </ItemGroup>
-      <Message Text="@(BuildArgs, ' ')" Importance="High" />
-      <Exec Command="@(BuildArgs, ' ')" /> 
-  <ItemGroup>
-    <BuildArgs Include="dotnet pack" />
-    <BuildArgs Include="$(UsingsProjectFile)" />
-    <BuildArgs Include="-t:PushLocal" Condition="'$(Configuration)' == 'Local'" />
-  </ItemGroup> -->
+      </JustinWritesCode.MSBuild.UsingsSdk.BuildUsingsPackage> -->
   </Target>
-   <Target Name="Pack" AfterTargets="Build" DependsOnTargets="Build">
-    <!-- <ItemGroup>
-      <BuildArgs Include="dotnet pack" />
-      <BuildArgs Include="$(UsingsProjectFile)" />
-      <BuildArgs Include="@(Targets->'-t:%(Identity)')" />
-    </ItemGroup>
-    <Message Text="@(BuildArgs, ' ')" Importance="High" />
-    <Exec Command="@(BuildArgs, ' ')" /> -->
-    <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore" />
-    <!-- <MSBuild Projects="$(UsingsProjectFile)" Targets="@(Targets)" /> -->
-    <Exec Command="dotnet build $(UsingsProjectFile) @(Targets->'t:%(Identity)')" />
+   <Target Name="Pack" AfterTargets="Build;PushGitHub;PushAzure;PushLocal;PushNuGet" DependsOnTargets="Build">
+    <!-- <MSBuild Projects="$(UsingsProjectFile)" Targets="Restore" Properties="@(Properties->'%(Identity)=%(Value)')" /> -->
+    <!-- <MSBuild Projects="$(UsingsProjectFile)" Targets="Pack" Properties="@(Properties->'%(Identity)=%(Value)')" /> -->
+    <Message Text="dotnet build $(UsingsProjectFile) @(Targets->'-t:%(Identity)') @(Properties->'-p:%(Identity)=%(Value)', ' ')" Importance="High" />
+    <Exec Command="dotnet build $(UsingsProjectFile) @(Targets->'-t:%(Identity)') -p:@(Properties->'%(Identity)=%(Value)', ',')" />
+    <!-- <Exec Command="dotnet build $(UsingsProjectFile) @(Targets->'-t:%(Identity)') @(Properties->'-p:%(Identity)=%(Value)', ' ')" /> -->
    </Target>
    <Target Name="OutputProperties" AfterTargets="Build">
     <Message Text="PackageIdOverride: $(PackageIdOverride)" />

@@ -10,6 +10,8 @@
  *      License: MIT (https://opensource.org/licenses/MIT)
  */
 
+using Microsoft.Build.Execution;
+
 namespace MSBuild.UsingsSdk;
 
 using System.Linq;

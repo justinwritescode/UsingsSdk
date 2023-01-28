@@ -1,0 +1,23 @@
+<!--
+ * TargetFrameworks.props
+ * 
+ *   Created: 2023-01-27-06:22:58
+ *   Modified: 2023-01-27-06:22:58
+ * 
+ *   Author: Justin Chase <justin@justinwritescode.com>
+ *   
+ *   Copyright © 2022-2023 Justin Chase, All Rights Reserved
+ *      License: MIT (https://opensource.org/licenses/MIT)
+-->
+
+<Project Sdk="Microsoft.Build.NoTargets">
+  <PropertyGroup>
+    <NetStandard1XFrameworks>netstandard1.0;netstandard1.2;netstandard1.3;netstandard1.4;netstandard1.5;netstandard1.6</NetStandard1XFrameworks>
+    <NetStandard2XFrameworks>netstandard2.0;netstandard2.1</NetStandard2XFrameworks>
+    <NetStandardFrameworks>$(AllNetStandard1XFrameworks);$(NetStandard2XFrameworks)</NetStandardFrameworks>
+    <NetCoreFrameworks>netcoreapp1.0;netcoreap1.1;netcoreapp2.0;netcoreapp2.1;netcoreapp2.3;netcoreapp3.0;netcoreapp3.1</NetCoreFrameworks>
+    <DotNetFrameworks>net5.0;net6.0;net7.0;net8.0</DotNetFrameworks>
+    <AllTargetFrameworks>$(NetStandardFrameworks);$(NetCoreFrameworks);$(DotNetFrameworks)</AllTargetFrameworks>
+    <TargetFrameworks>$(AllTargetFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+</Project>

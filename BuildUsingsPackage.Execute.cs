@@ -13,6 +13,7 @@
 
 namespace MSBuild.UsingsSdk;
 
+using Microsoft.Build.Framework;
 using NuGet.Protocol.Plugins;
 using XA = System.Xml.Linq.XAttribute;
 using XC = System.Xml.Linq.XComment;
@@ -60,6 +61,7 @@ public partial class BuildUsingsPackage
             new XC("</auto-generated>"),
             new XE(
                 "Project",
+                // new XE("Import", new XA("Project", "$(MSBuildBinPath)/Sdks/NuGet.Build.Tasks.Pack/buildCrossTargeting/NuGet.Build.Tasks.Pack.targets")),
                 new XC("Usings: " + xUsings.Length),
                 new XE(
                     "ItemGroup",
@@ -148,6 +150,22 @@ public partial class BuildUsingsPackage
                             nameof(PackageVersion),
                             new XA($"Condition", $"'$({nameof(PackageVersion)})' == ''"),
                             PackageVersion
+                        )
+                    )
+                ),
+                new XE(
+                    "Target",
+                    new XA("Name", "RemovePackageContents"),
+                    new XA("AfterTargets", "GetPackageContents"),
+                    new XE(
+                        "ItemGroup",
+                        new XE(
+                            "PackageFile",
+                            new XA("Remove", "**/*")
+                        ),
+                        new XE(
+                            "None",
+                            new XA("Remove", "**/*")
                         )
                     )
                 )
